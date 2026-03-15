@@ -3,12 +3,11 @@
 
 ### Düşünen Kodlamacı
 
-* İntake
+* Intake
     
 
 ### Duru
 
-* Limelight
 * İndexer
 * Swerve
 
@@ -17,4 +16,4 @@
 
 * Shooter
 * Turret
-
+* Limelight
