@@ -3,7 +3,7 @@
 
 ### Düşünen Kodlamacı
 
-* İntake
+* Intake
     
 
 ### Duru
