@@ -8,7 +8,6 @@
 
 ### Duru
 
-* Limelight
 * İndexer
 * Swerve
 
@@ -17,4 +16,4 @@
 
 * Shooter
 * Turret
-
+* Limelight
