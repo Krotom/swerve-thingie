@@ -17,7 +17,7 @@ public class VisionSubsystem extends SubsystemBase {
   CommandSwerveDrivetrain drivetrain;
 
   private final StructPublisher<Pose2d> transPub = NetworkTableInstance.getDefault()
-        .getStructTopic("Vision/TargetDisplacement", Pose2d.struct) // .struct sihirli kısımdır
+        .getStructTopic("Vision/TargetDisplacement", Pose2d.struct) 
         .publish();
   
   public VisionSubsystem(CommandSwerveDrivetrain drivetrain) {
