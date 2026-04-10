@@ -8,12 +8,12 @@
 
 ### Duru
 
-* Swerve
+* Limelight
 
 
 ### Together
 
 * Shooter
 * Intake
-* Limelight
 * İndexer
+* Swerve

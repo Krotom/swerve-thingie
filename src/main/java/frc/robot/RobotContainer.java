@@ -67,8 +67,9 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        controller.leftTrigger().whileTrue(new RunCommand(intake::deployIntake));
-        controller.rightTrigger().whileTrue(new RunCommand(intake::retractIntake));
+        controller.leftTrigger().whileTrue(new RunCommand(intake::pushIntake).withTimeout(1.5));
+        controller.rightTrigger().whileTrue(new RunCommand(intake::retractIntake).withTimeout(1.5));
+        
     }
 
     public void teleopPeriodic() {

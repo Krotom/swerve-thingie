@@ -8,8 +8,8 @@ import static frc.robot.Constants.IntakeConstants.*;
 
 
 public class IntakeSubsystem extends SubsystemBase{
-    private TalonFX deployMotor;
-    private TalonFX intakeMotor;
+    private TalonFX deployMotor = new TalonFX(kDeployMotorID);
+    private TalonFX intakeMotor = new TalonFX(kIntakeMotorID);
 
     private IntakeState intakeState = IntakeState.IDLE;
     private DeployState deployState = DeployState.RESTRACTED;
@@ -18,8 +18,7 @@ public class IntakeSubsystem extends SubsystemBase{
     
     // constructor
     public IntakeSubsystem() {
-        deployMotor = new TalonFX(kDeployMotorID);
-        intakeMotor = new TalonFX(kIntakeMotorID);
+        
     }
 
     @Override
@@ -29,7 +28,7 @@ public class IntakeSubsystem extends SubsystemBase{
 
 
     // methods
-    public void deployIntake() {
+    public void pushIntake() {
         deployMotor.set(kDeployMotorSpeed);
         deployState = DeployState.PUSHING;
     }
