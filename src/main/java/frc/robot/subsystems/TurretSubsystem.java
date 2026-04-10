@@ -6,11 +6,19 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class VisionSubsystem extends SubsystemBase {
-  /** Creates a new VisionSubsystem. */
-  public VisionSubsystem() {
+public class TurretSubsystem extends SubsystemBase {
+  /** Creates a new TurretSubsystem. */
+  CommandSwerveDrivetrain drivetrain;
+
+  
+  
+  public TurretSubsystem(CommandSwerveDrivetrain drivetrain) {
+    this.drivetrain = drivetrain;
   }
 
   @Override
-  public void periodic() {  }
+  public void periodic() {
+  }
+
+  
 }

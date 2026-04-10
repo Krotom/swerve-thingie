@@ -86,7 +86,9 @@ public class Robot extends LoggedRobot {
     }
 
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+        m_robotContainer.teleopPeriodic();
+    }
 
     @Override
     public void teleopExit() {}

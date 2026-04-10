@@ -27,14 +27,6 @@ public class IntakeSubsystem extends SubsystemBase{
         // TODO intake deployment is stub, implement later
     }
 
-    public void toggleIntake() {
-        if (intakeState != IntakeState.IDLE) {
-            intakeState = IntakeState.IDLE;
-        } else {
-            intakeState = IntakeState.INTAKE;
-        }
-    }
-
     public void intake() {
         if (intakeState == IntakeState.INTAKE) {
             intakeMotor.set(1);

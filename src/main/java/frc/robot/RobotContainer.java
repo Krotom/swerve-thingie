@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
-
+import frc.robot.commands.PrepareShooter;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
@@ -35,7 +35,7 @@ public class RobotContainer {
     private final CommandXboxController joystick = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-    public final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrain);
+    public final TurretSubsystem turretSubsystem = new TurretSubsystem(drivetrain);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -63,6 +63,11 @@ public class RobotContainer {
         );
 
         drivetrain.registerTelemetry(logger::telemeterize);
+    }
+
+    public void teleopPeriodic() {
+        PrepareShooter.dispPub.set(PrepareShooter.getTargetDisp(drivetrain));
+        PrepareShooter.turretPub.set(PrepareShooter.getFutureFieldTurretPose(drivetrain, 0.2));
     }
 
     public Command getAutonomousCommand() {

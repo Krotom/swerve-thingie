@@ -6,6 +6,10 @@ package frc.robot;
 
 import java.util.Optional;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -21,20 +25,23 @@ public class Constants {
         }
     }
 
-    public class VisionConstants {
+    public static class ShootingConstants {
         public static final InterpolatingDoubleTreeMap DIST_TIME_MAP = new InterpolatingDoubleTreeMap();
 
         static {
-            // (Mesafe metre, Süre saniye)
-            DIST_TIME_MAP.put(0.0, 0.00); // Başlangıç noktası
-            DIST_TIME_MAP.put(1.0, 0.07); // Yakın mesafe, çok hızlı
-            DIST_TIME_MAP.put(2.0, 0.15); // Ortalama hız düşmeye başlıyor
-            DIST_TIME_MAP.put(3.0, 0.24); 
-            DIST_TIME_MAP.put(4.0, 0.34); 
-            DIST_TIME_MAP.put(5.0, 0.45); 
-            DIST_TIME_MAP.put(6.0, 0.57); // Uzak mesafe, hava direnci etkisini gösteriyor
-            DIST_TIME_MAP.put(8.0, 0.85); // Ekstrem menzil
+            DIST_TIME_MAP.put(1.0, 1.00);
+            DIST_TIME_MAP.put(8.0, 1.5);
         } // FIXME stub values, replace with actual values after testing
+    }
+
+    public static class TurretConstants {
+        public static final int kShooterLeaderMotorID = 0;
+        public static final int kShooterFollower1MotorID = 0;
+        public static final int kShooterFollower2MotorID = 0;
+        public static final int kShooterFollower3MotorID = 0;
+        public static final int kTurretMotorID = 0;
+
+        public static final Transform2d turretTransform = new Transform2d(0.2, 0.0, new Rotation2d());
     }
 
     public static class FieldConstants{
@@ -96,6 +103,11 @@ public class Constants {
             }
 
             return BLUE_POSITIONS;
+        }
+
+        public static Translation2d getHubPosition() {
+            Double[] positions = getAlliancePositions();
+            return new Translation2d(positions[HUB_X_INDEX], positions[HUB_Y_INDEX]);
         }
     }
 }
