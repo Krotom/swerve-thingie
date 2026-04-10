@@ -6,7 +6,6 @@ package frc.robot;
 
 import java.util.Optional;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -23,6 +22,13 @@ public class Constants {
             INTAKE,
             OUTTURN
         }
+        public static enum DeployState {
+            PUSHING,
+            RESTRACTING,
+            FULLY_OPEN,
+            RESTRACTED
+        }
+        public static final double kDeployMotorSpeed = 0.75;
     }
 
     public static class ShootingConstants {
@@ -31,7 +37,7 @@ public class Constants {
         static {
             DIST_TIME_MAP.put(1.0, 1.00);
             DIST_TIME_MAP.put(8.0, 1.5);
-        } // FIXME stub values, replace with actual values after testing
+        }
     }
 
     public static class TurretConstants {

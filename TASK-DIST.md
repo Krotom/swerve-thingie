@@ -3,7 +3,7 @@
 
 ### Düşünen Kodlamacı
 
-* Intake
+* Turret
     
 
 ### Duru
@@ -14,6 +14,6 @@
 ### Together
 
 * Shooter
-* Turret
+* Intake
 * Limelight
 * İndexer

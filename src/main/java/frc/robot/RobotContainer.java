@@ -15,11 +15,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.commands.PrepareShooter;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 
 public class RobotContainer {
@@ -32,10 +34,11 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController controller = new CommandXboxController(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public final TurretSubsystem turretSubsystem = new TurretSubsystem(drivetrain);
+    public final IntakeSubsystem intake = new IntakeSubsystem();
 
     private final SendableChooser<Command> autoChooser;
 
@@ -51,9 +54,9 @@ public class RobotContainer {
     private void configureBindings() {
         drivetrain.setDefaultCommand(
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate)
+                drive.withVelocityX(-controller.getLeftY() * MaxSpeed)
+                    .withVelocityY(-controller.getLeftX() * MaxSpeed)
+                    .withRotationalRate(-controller.getRightX() * MaxAngularRate)
             )
         );
 
@@ -63,6 +66,9 @@ public class RobotContainer {
         );
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        controller.leftTrigger().whileTrue(new RunCommand(intake::deployIntake));
+        controller.rightTrigger().whileTrue(new RunCommand(intake::retractIntake));
     }
 
     public void teleopPeriodic() {

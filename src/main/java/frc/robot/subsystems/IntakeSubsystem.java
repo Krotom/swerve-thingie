@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.IntakeConstants.IntakeState;;
+import static frc.robot.Constants.IntakeConstants.*;
 
 
 
@@ -12,10 +12,14 @@ public class IntakeSubsystem extends SubsystemBase{
     private TalonFX intakeMotor;
 
     private IntakeState intakeState = IntakeState.IDLE;
+    private DeployState deployState = DeployState.RESTRACTED;
+
+    private final StaticBrake brake = new StaticBrake();
     
+    // constructor
     public IntakeSubsystem() {
-        deployMotor = new TalonFX(IntakeConstants.kDeployMotorID);
-        intakeMotor = new TalonFX(IntakeConstants.kIntakeMotorID);
+        deployMotor = new TalonFX(kDeployMotorID);
+        intakeMotor = new TalonFX(kIntakeMotorID);
     }
 
     @Override
@@ -23,8 +27,16 @@ public class IntakeSubsystem extends SubsystemBase{
         intake();
     }
 
+
+    // methods
     public void deployIntake() {
-        // TODO intake deployment is stub, implement later
+        deployMotor.set(kDeployMotorSpeed);
+        deployState = DeployState.PUSHING;
+    }
+
+    public void retractIntake() {
+        deployMotor.set(-kDeployMotorSpeed);
+        deployState = DeployState.RESTRACTING;
     }
 
     public void intake() {
@@ -33,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase{
         } else if (intakeState == IntakeState.OUTTURN) {
             intakeMotor.set(-1);
         } else {
-            stop();
+            stopIntaking();
         }
     }
 
@@ -41,7 +53,11 @@ public class IntakeSubsystem extends SubsystemBase{
         intakeState = IntakeState.OUTTURN;
     }
 
-    public void stop() {
-        intakeMotor.stopMotor();
+    public void stopIntaking() {
+        intakeMotor.setControl(brake);
+    }
+
+    public void stopHopper() {
+        deployMotor.setControl(brake);
     }
 }
