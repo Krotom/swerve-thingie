@@ -17,18 +17,8 @@ public class Constants {
     public class IntakeConstants {
         public static final int kDeployMotorID = 0;
         public static final int kIntakeMotorID = 0;
-        public static enum IntakeState {
-            IDLE,
-            INTAKE,
-            OUTTURN
-        }
-        public static enum DeployState {
-            PUSHING,
-            RESTRACTING,
-            FULLY_OPEN,
-            RESTRACTED
-        }
-        public static final double kDeployMotorSpeed = 0.75;
+
+        public static final Double[] intakePositions = {0.3, 10.0};
     }
 
     public static class ShootingConstants {
@@ -47,7 +37,7 @@ public class Constants {
         public static final int kShooterFollower3MotorID = 0;
         public static final int kTurretMotorID = 0;
 
-        public static final Transform2d turretTransform = new Transform2d(0.2, 0.0, new Rotation2d());
+        public static final Transform2d turretTransform = new Transform2d(-0.1774, 0.0, new Rotation2d());
     }
 
     public static class FieldConstants{

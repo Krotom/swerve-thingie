@@ -52,6 +52,8 @@ public class Robot extends LoggedRobot {
                 m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
             }
         }
+
+        m_robotContainer.robotPeriodic();
     }
 
     @Override
@@ -83,11 +85,6 @@ public class Robot extends LoggedRobot {
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }
-    }
-
-    @Override
-    public void teleopPeriodic() {
-        m_robotContainer.teleopPeriodic();
     }
 
     @Override

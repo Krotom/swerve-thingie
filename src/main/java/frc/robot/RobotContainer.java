@@ -11,11 +11,11 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.FollowPathCommand;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.commands.PrepareShooter;
@@ -65,16 +65,11 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-        drivetrain.registerTelemetry(logger::telemeterize);
-
-        controller.leftTrigger().whileTrue(new RunCommand(intake::pushIntake).withTimeout(1.5));
-        controller.rightTrigger().whileTrue(new RunCommand(intake::retractIntake).withTimeout(1.5));
-        
+        drivetrain.registerTelemetry(logger::telemeterize);        
     }
 
-    public void teleopPeriodic() {
-        PrepareShooter.dispPub.set(PrepareShooter.getTargetDisp(drivetrain));
-        PrepareShooter.turretPub.set(PrepareShooter.getFutureFieldTurretPose(drivetrain, 0.2));
+    public void robotPeriodic() {
+        
     }
 
     public Command getAutonomousCommand() {

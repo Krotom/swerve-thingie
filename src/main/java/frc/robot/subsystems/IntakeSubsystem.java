@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.controls.StaticBrake;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IntakeConstants.*;
@@ -11,10 +12,10 @@ public class IntakeSubsystem extends SubsystemBase{
     private TalonFX deployMotor = new TalonFX(kDeployMotorID);
     private TalonFX intakeMotor = new TalonFX(kIntakeMotorID);
 
-    private IntakeState intakeState = IntakeState.IDLE;
-    private DeployState deployState = DeployState.RESTRACTED;
+    private final MotionMagicVoltage openerMagic = new MotionMagicVoltage(0).withEnableFOC(true);
+    private final VoltageOut rollerVoltageOut = new VoltageOut(0).withEnableFOC(true);
 
-    private final StaticBrake brake = new StaticBrake();
+    private Integer intakeIndex = 0;
     
     // constructor
     public IntakeSubsystem() {
@@ -23,40 +24,26 @@ public class IntakeSubsystem extends SubsystemBase{
 
     @Override
     public void periodic() {
-        intake();
+        setIntakePosition();
+        handleRoller();
     }
-
 
     // methods
-    public void pushIntake() {
-        deployMotor.set(kDeployMotorSpeed);
-        deployState = DeployState.PUSHING;
+    public void setIntakePosition() {
+        deployMotor.setControl(openerMagic.withPosition(intakePositions[intakeIndex]));
     }
 
-    public void retractIntake() {
-        deployMotor.set(-kDeployMotorSpeed);
-        deployState = DeployState.RESTRACTING;
+    public void setIntakeIndex(Integer index) {
+        intakeIndex = index;
     }
 
-    public void intake() {
-        if (intakeState == IntakeState.INTAKE) {
-            intakeMotor.set(1);
-        } else if (intakeState == IntakeState.OUTTURN) {
-            intakeMotor.set(-1);
-        } else {
-            stopIntaking();
+    public void handleRoller(){
+        if(deployMotor.getPosition().getValueAsDouble()>3.0){
+            setRollerVoltage(11.0);
         }
     }
 
-    public void setOutturn() {
-        intakeState = IntakeState.OUTTURN;
-    }
-
-    public void stopIntaking() {
-        intakeMotor.setControl(brake);
-    }
-
-    public void stopHopper() {
-        deployMotor.setControl(brake);
+    public void setRollerVoltage(Double voltage) {
+        intakeMotor.setControl(rollerVoltageOut.withOutput(voltage));
     }
 }
