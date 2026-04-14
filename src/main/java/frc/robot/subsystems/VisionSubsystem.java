@@ -1,4 +1,4 @@
-// TODO: bu subsystemla ilgilenmeye başla
+// TODO: bu subsystem yok oldu
 
 package frc.robot.subsystems;
 
