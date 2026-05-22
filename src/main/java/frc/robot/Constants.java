@@ -16,7 +16,8 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 public class Constants {
     public class IntakeConstants {
         public static final int kDeployMotorID = 0;
-        public static final int kIntakeMotorID = 0;
+        public static final int kIntakeLeaderID = 0;
+        public static final int kIntakeFollowerID = 0;
 
         public static final Double[] intakePositions = {0.3, 10.0};
     }

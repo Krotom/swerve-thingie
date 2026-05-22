@@ -52,8 +52,6 @@ public class Robot extends LoggedRobot {
                 m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
             }
         }
-
-        m_robotContainer.robotPeriodic();
     }
 
     @Override

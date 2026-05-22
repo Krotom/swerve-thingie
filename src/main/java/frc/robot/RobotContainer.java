@@ -68,10 +68,6 @@ public class RobotContainer {
         drivetrain.registerTelemetry(logger::telemeterize);        
     }
 
-    public void robotPeriodic() {
-        
-    }
-
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
     }

@@ -10,17 +10,15 @@ import static frc.robot.Constants.IntakeConstants.*;
 
 public class IntakeSubsystem extends SubsystemBase{
     private TalonFX deployMotor = new TalonFX(kDeployMotorID);
-    private TalonFX intakeMotor = new TalonFX(kIntakeMotorID);
+    private TalonFX intakeLeader = new TalonFX(kIntakeLeaderID);
+    private TalonFX intakeFollower = new TalonFX(kIntakeFollowerID);
 
     private final MotionMagicVoltage openerMagic = new MotionMagicVoltage(0).withEnableFOC(true);
     private final VoltageOut rollerVoltageOut = new VoltageOut(0).withEnableFOC(true);
 
     private Integer intakeIndex = 0;
     
-    // constructor
-    public IntakeSubsystem() {
-        
-    }
+    public IntakeSubsystem() {}
 
     @Override
     public void periodic() {
@@ -28,7 +26,7 @@ public class IntakeSubsystem extends SubsystemBase{
         handleRoller();
     }
 
-    // methods
+    // Methods
     public void setIntakePosition() {
         deployMotor.setControl(openerMagic.withPosition(intakePositions[intakeIndex]));
     }
@@ -40,10 +38,12 @@ public class IntakeSubsystem extends SubsystemBase{
     public void handleRoller(){
         if(deployMotor.getPosition().getValueAsDouble()>3.0){
             setRollerVoltage(11.0);
+        }else{
+            setRollerVoltage(0.0);
         }
     }
 
     public void setRollerVoltage(Double voltage) {
-        intakeMotor.setControl(rollerVoltageOut.withOutput(voltage));
+        intakeLeader.setControl(rollerVoltageOut.withOutput(voltage));
     }
 }
